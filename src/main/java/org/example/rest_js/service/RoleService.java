@@ -17,4 +17,6 @@ public interface RoleService {
     List<Role> getAllRoles();
 
     Role getRoleByName(String name);
+
+    List<Role> iterateRoles(List<String> roleName);
 }

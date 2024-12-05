@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImp implements RoleService {
@@ -48,5 +50,10 @@ public class RoleServiceImp implements RoleService {
     @Override
     public Role getRoleByName(String name) {
         return roleRepository.findByName(name).orElseThrow(() -> new RuntimeException(String.format("Role with name %s not found", name)) );
+    }
+
+    @Override
+    public List<Role> iterateRoles(List<String> roleName) {
+        return roleName.stream().map(this::getRoleByName).collect(Collectors.toList());
     }
 }

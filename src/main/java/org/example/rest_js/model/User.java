@@ -4,11 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-
-import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +24,7 @@ public class User implements UserDetails {
 
     private String sex;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "users_roles",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -123,5 +119,17 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return getName();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", sername='" + sername + '\'' +
+                ", sex='" + sex + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

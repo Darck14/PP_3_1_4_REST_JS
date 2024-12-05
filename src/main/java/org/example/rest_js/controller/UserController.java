@@ -1,7 +1,7 @@
 package org.example.rest_js.controller;
 
 
-import org.example.rest_js.model.User;
+import org.example.rest_js.dto.UserDTO;
 import org.example.rest_js.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+        List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -31,14 +31,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveUser(User user) {
+    public ResponseEntity<?> saveUser(@RequestBody UserDTO user) {
         userService.addUser(user);
         return new ResponseEntity<>(user ,HttpStatus.CREATED);
     }
 
-    //TO DO (не правильная реализация метода, чтото нужно сделать с ID)
     @PutMapping("{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id,@RequestBody User user) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id,@RequestBody UserDTO user) {
         userService.updateUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -46,6 +45,6 @@ public class UserController {
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
