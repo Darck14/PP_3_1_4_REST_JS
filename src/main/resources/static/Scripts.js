@@ -4,7 +4,7 @@ async function updateUser(user) {
         const response = await fetch(`/api/user/${user.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(user.id, user)
+            body: JSON.stringify(user)
         });
         console.log(user);
         if (!response.ok) {
@@ -71,7 +71,7 @@ function openEditModal(user) {
     document.getElementById("editUserPassword").value ="";
     document.getElementById("editUserSername").value = user.sername;
     document.getElementById("editUserSex").value = user.sex;
-    document.getElementById("editUserRoles").value = user.roles.map(role => role).join(", ");
+    document.getElementById("editUserRoles").value = user.roles.map(role => role).join(",");
     const editModal = new bootstrap.Modal(document.getElementById("editModal"));
     editModal.show();
 }
@@ -82,7 +82,7 @@ function openDeleteModal(user) {
     document.getElementById("deleteUserName").textContent = user.name;
     document.getElementById("deleteUserSername").textContent = user.sername;
     document.getElementById("deleteUserSex").textContent = user.sex;
-    document.getElementById("deleteUserRoles").textContent = user.roles.map(role => role).join(", ");
+    document.getElementById("deleteUserRoles").textContent = user.roles.map(role => role).join(",");
     const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
     deleteModal.show();
 }
@@ -106,7 +106,7 @@ document.getElementById("submitEdit").addEventListener("click", async () => {
         password: document.getElementById("editUserPassword").value,
         sername: document.getElementById("editUserSername").value,
         sex: document.getElementById("editUserSex").value,
-        roles: document.getElementById("editUserRoles").value.split(",").map(role => ({name: role.trim()}))
+        roles: document.getElementById("editUserRoles").value.split(",").map(role => role)
     };
     await updateUser(user);
     await initUsersTable(); // Обновляем таблицу
