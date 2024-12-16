@@ -37,10 +37,10 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests((authorizeRequests) ->
-//                        authorizeRequests.requestMatchers("/admin/**").hasRole("ADMIN")
-//                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-//                                .anyRequest().authenticated())
+                .authorizeHttpRequests((authorizeRequests) ->
+                        authorizeRequests.requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin.successHandler(successUserHandler));
         return http.build();
 

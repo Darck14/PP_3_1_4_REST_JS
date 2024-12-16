@@ -1,10 +1,13 @@
 package org.example.rest_js.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class UserDTO {
 
-    private long id;
+    private Long id;
     private String name;
     private String password;
     private String sername;
@@ -13,7 +16,10 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    public UserDTO(long id, String name, String password, String sername,String sex, List<String> roles) {
+    @JsonCreator
+    public UserDTO(@JsonProperty("id") Long id,@JsonProperty("name") String name,
+                   @JsonProperty("password") String password, @JsonProperty("sername") String sername,
+                   @JsonProperty("sex") String sex, @JsonProperty("roles") List<String> roles) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -22,7 +28,7 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

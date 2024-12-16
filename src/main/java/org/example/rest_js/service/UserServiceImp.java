@@ -59,7 +59,6 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void addUser(UserDTO userDTO) {
-        System.out.println("Received JSON: " + userDTO.toString());
         User user = fromDTO(userDTO);
         userRepository.save(user);
     }
@@ -67,7 +66,6 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void updateUser(UserDTO userDTO) {
-        System.out.println("Received JSON: " + userDTO.toString());
         User user = fromDTO(userDTO);
         userRepository.save(user);
     }
