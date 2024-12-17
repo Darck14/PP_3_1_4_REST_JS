@@ -104,7 +104,8 @@ public class UserServiceImp implements UserService {
     private String checkPassword(UserDTO userDTO) {
         if (userDTO.getId() == 0 || !passwordEncoder.matches(userDTO.getPassword(),
                 this.getUserById(userDTO.getId()).getPassword())) {
-           return userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+           userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+           return userDTO.getPassword();
         } else {
            return userDTO.getPassword();
         }

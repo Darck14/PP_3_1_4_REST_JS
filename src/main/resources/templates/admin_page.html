@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -91,9 +91,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="editUserRoles" class="form-label">Roles</label>
-                        <input type="text" class="form-control" id="editUserRoles">
+                        <select class="form-select" id="editUserRoles" multiple>
+
+                        </select>
                     </div>
-                    <button type="button" class="btn btn-primary" id="submitEdit">Submit</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="submitEdit">Edit</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -109,17 +114,36 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this user?</p>
-                <ul>
-                    <li><strong>ID:</strong> <span id="deleteUserId"></span></li>
-                    <li><strong>Name:</strong> <span id="deleteUserName"></span></li>
-                    <li><strong>Sername:</strong> <span id="deleteUserSername"></span></li>
-                    <li><strong>Sex:</strong> <span id="deleteUserSex"></span></li>
-                    <li><strong>Roles:</strong> <span id="deleteUserRoles"></span></li>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="submitDelete">Delete</button>
+                <form id="deleteForm">
+                    <fieldset disabled>
+                        <div class="mb-3">
+                            <label for="deleteUserId" class="form-label">ID</label>
+                            <input type="text" class="form-control" id="deleteUserId">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deleteUserName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="deleteUserName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deleteUserSername" class="form-label">Sername</label>
+                            <input type="text" class="form-control" id="deleteUserSername">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deleteUserSex" class="form-label">Sex</label>
+                            <input type="text" class="form-control" id="deleteUserSex">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deleteUserRoles" class="form-label">Roles</label>
+                            <select class="form-select" id="deleteUserRoles" multiple>
+
+                            </select>
+                        </div>
+                    </fieldset>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger" id="submitDelete">Delete</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -127,6 +151,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="/Scripts.js"></script>
+<script src="/ScriptsAdminPage.js"></script>
 </body>
 </html>
