@@ -93,7 +93,8 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getUserByName(String name) {
-        return userRepository.findByName(name).orElseThrow(() -> new RuntimeException(String.format("User with name %s not found", name)));
+        return userRepository.findByName(name).orElseThrow(() ->
+                new RuntimeException(String.format("User with name %s not found", name)));
     }
 
     @Override

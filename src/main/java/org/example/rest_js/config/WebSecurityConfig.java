@@ -31,7 +31,6 @@ public class WebSecurityConfig {
         this.successUserHandler = successUserHandler;
     }
 
-    // Убрал защиту для тестов в ПостМане
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

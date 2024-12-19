@@ -1,4 +1,3 @@
-// Функция для обновления пользователя
 async function updateUser(user) {
     try {
         const response = await fetch(`/api/user/${user.id}`, {
@@ -11,11 +10,23 @@ async function updateUser(user) {
         }
         return await response.json();
     } catch (error) {
-        console.error("Error updating user:", error);
+        console.error(error);
     }
 }
 
-// Функция для выполнения DELETE-запроса
+async function requestAuthorizedUser() {
+    try {
+        const response = await fetch(`/api/user/authorized`, {
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to request user: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 async function deleteUser(userId) {
     try {
         const response = await fetch(`/api/user/${userId}`, {
@@ -29,7 +40,6 @@ async function deleteUser(userId) {
     }
 }
 
-// Функция для выполнения запроса всех пользователей на сервер
 async function requestAllUsers() {
     try {
         const response = await fetch("/api/user");
@@ -51,12 +61,18 @@ async function requestAllRoles() {
         }
         return await response.json();
     } catch (error) {
-        console.error()
+        console.error(error)
         return [];
     }
 }
 
-// Функция для рендеринга таблицы с пользователями
+function renderNavbarText(user) {
+    const navbarTextBody = document.getElementById("navbarText");
+    navbarTextBody.innerHTML = `
+    <span class="fw-bold">${user.name}</span> with roles : <span>${user.roles.map(role => role).join(",")}</span>
+    `
+}
+
 function renderUsersTable(users) {
     const usersTableBody = document.getElementById("usersTableBody");
     usersTableBody.innerHTML = "";// Очищаем таблицу перед заполнением
@@ -76,7 +92,6 @@ function renderUsersTable(users) {
     });
 }
 
-// Функция для открытия модального окна Edit
 async function openEditModal(user) {
     const roles = await requestAllRoles();
     console.log(roles);
@@ -91,7 +106,6 @@ async function openEditModal(user) {
     editModal.show();
 }
 
-// Функция для открытия модального окна Delete
 function openDeleteModal(user) {
     document.getElementById("deleteUserId").value = user.id;
     document.getElementById("deleteUserName").value = user.name;
@@ -103,13 +117,16 @@ function openDeleteModal(user) {
     deleteModal.show();
 }
 
-// Основная функция для инициализации загрузки данных и рендеринга таблицы
+async function initNavbarText() {
+    const user = await requestAuthorizedUser(name);
+    renderNavbarText(user);
+}
+
 async function initUsersTable() {
     const users = await requestAllUsers(); // Получаем пользователей
     renderUsersTable(users); // Рендерим таблицу
 }
 
-// Обработка события для кнопки Submit в Edit Modal
 async function handleEditSubmit() {
     const user = {
         id: document.getElementById("editUserId").value,
@@ -120,19 +137,18 @@ async function handleEditSubmit() {
         roles: document.getElementById("editUserRoles").value.split(",").map(role => role)
     };
     await updateUser(user);
-    await initUsersTable(); // Обновляем таблицу
+    await initUsersTable();
     bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
 }
 
-// Обработка события для кнопки Submit в Delete Modal
 async function handleDeleteSubmit() {
-    const userId = document.getElementById("deleteUserId").textContent;
+    const userId = document.getElementById("deleteUserId").value;
     await deleteUser(userId);
-    await initUsersTable(); // Обновляем таблицу
+    await initUsersTable();
     bootstrap.Modal.getInstance(document.getElementById("deleteModal")).hide();
 }
 
-//Запускаем основную функцию при загрузке страницы
+document.addEventListener("DOMContentLoaded", initNavbarText);
 document.addEventListener("DOMContentLoaded", initUsersTable);
 document.getElementById("submitEdit").addEventListener("click", handleEditSubmit);
 document.getElementById("submitDelete").addEventListener("click", handleDeleteSubmit);

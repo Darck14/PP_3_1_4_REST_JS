@@ -5,6 +5,7 @@ import org.example.rest_js.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
@@ -26,6 +27,5 @@ public interface UserService extends UserDetailsService {
     UserDTO toDTO(User user);
 
     User fromDTO(UserDTO userDTO);
-
 
 }

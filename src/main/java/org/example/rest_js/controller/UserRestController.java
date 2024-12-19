@@ -2,12 +2,15 @@ package org.example.rest_js.controller;
 
 
 import org.example.rest_js.dto.UserDTO;
+import org.example.rest_js.model.User;
 import org.example.rest_js.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -32,6 +35,10 @@ public class UserRestController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/authorized")
+    public ResponseEntity<?> getAuthorizedUser(@AuthenticationPrincipal User user) {
+        return new ResponseEntity<>(userService.toDTO(user), HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity<?> saveUser(@RequestBody UserDTO user) {
         userService.addUser(user);
@@ -49,4 +56,5 @@ public class UserRestController {
         userService.deleteUserById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
