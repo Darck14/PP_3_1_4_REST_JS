@@ -1,8 +1,5 @@
 package org.example.rest_js.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public class UserDTO {
@@ -16,10 +13,8 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    @JsonCreator
-    public UserDTO(@JsonProperty("id") Long id,@JsonProperty("name") String name,
-                   @JsonProperty("password") String password, @JsonProperty("sername") String sername,
-                   @JsonProperty("sex") String sex, @JsonProperty("roles") List<String> roles) {
+
+    public UserDTO( Long id, String name, String password, String sername, String sex, List<String> roles) {
         this.id = id;
         this.name = name;
         this.password = password;

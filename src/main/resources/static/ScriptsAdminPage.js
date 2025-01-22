@@ -128,17 +128,20 @@ async function initUsersTable() {
 }
 
 async function handleEditSubmit() {
+    const rolesSelect = document.getElementById("editUserRoles");
+    const selectedRoles = Array.from(rolesSelect.selectedOptions).map(option => option.value);
     const user = {
         id: document.getElementById("editUserId").value,
         name: document.getElementById("editUserName").value,
         password: document.getElementById("editUserPassword").value,
         sername: document.getElementById("editUserSername").value,
         sex: document.getElementById("editUserSex").value,
-        roles: document.getElementById("editUserRoles").value.split(",").map(role => role)
+        roles: selectedRoles
     };
     await updateUser(user);
     await initUsersTable();
     bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
+
 }
 
 async function handleDeleteSubmit() {

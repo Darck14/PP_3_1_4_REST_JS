@@ -47,7 +47,9 @@ public class UserServiceImp implements UserService {
     @Override
     public User fromDTO(UserDTO userDTO) {
         User user = new User();
-        user.setId(userDTO.getId());
+        if (userDTO.getId() != 0) {
+            user.setId(userDTO.getId());
+        }
         user.setName(userDTO.getName());
         user.setPassword(this.checkPassword(userDTO));
         user.setSername(userDTO.getSername());
@@ -103,12 +105,13 @@ public class UserServiceImp implements UserService {
     }
 
     private String checkPassword(UserDTO userDTO) {
-        if (userDTO.getId() == 0 || !passwordEncoder.matches(userDTO.getPassword(),
-                this.getUserById(userDTO.getId()).getPassword())) {
-           userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-           return userDTO.getPassword();
+        if (userDTO.getId() == 0) {
+            return passwordEncoder.encode(userDTO.getPassword());
+        } else if (userDTO.getPassword().isEmpty() ||
+                passwordEncoder.matches(userDTO.getPassword(), this.getUserById(userDTO.getId()).getPassword())) {
+            return this.getUserById(userDTO.getId()).getPassword();
         } else {
-           return userDTO.getPassword();
+            return passwordEncoder.encode(userDTO.getPassword());
         }
     }
 }

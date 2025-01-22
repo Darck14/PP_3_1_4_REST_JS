@@ -54,13 +54,15 @@ async function renderRowRole() {
 }
 
 async function handleAddUserSubmit() {
+    const rolesSelect = document.getElementById("newUserRole");
+    const selectedRoles = Array.from(rolesSelect.selectedOptions).map(option => option.value);
     const user = {
-        id: 0,
+        id : 0,
         name: document.getElementById("newUserName").value,
         password: document.getElementById("newUserPassword").value,
         sername: document.getElementById("newUserSername").value,
         sex: document.getElementById("newUserSex").value,
-        roles: document.getElementById("newUserRole").value.split(",").map(role => role)
+        roles: selectedRoles
     };
     await addUser(user);
     alert('Пользователь создан');
